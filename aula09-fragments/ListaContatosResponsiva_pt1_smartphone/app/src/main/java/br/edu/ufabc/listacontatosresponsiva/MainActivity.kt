@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var contacts: List<Contact>
     private lateinit var binding: ActivityMainBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -47,18 +46,19 @@ class MainActivity : AppCompatActivity() {
         val mainContainer = binding.mainFragmentContainer
 
         supportFragmentManager.commit {
-            replace(mainContainer.id, ContactListFragment(contacts))
+            replace(mainContainer.id, ContactListFragment().also {
+                it.contacts = contacts
+            })
         }
     }
 
     private fun bindEvents() {
         supportFragmentManager.setFragmentResultListener(ContactListFragment.itemClickedKey,
             this) { _, bundle ->
-            val position = bundle.getInt(ContactListFragment.itemClickedPosition)
-            val contact = contacts[position]
-
             supportFragmentManager.commit {
-                replace(binding.mainFragmentContainer.id, ContactItemFragment(contact))
+                replace(binding.mainFragmentContainer.id, ContactItemFragment().apply {
+                    contact = contacts[bundle.getInt(ContactListFragment.itemClickedPosition)]
+                })
                 addToBackStack(null)
             }
         }

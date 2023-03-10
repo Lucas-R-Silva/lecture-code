@@ -14,8 +14,9 @@ import br.edu.ufabc.listacontatosresponsiva.databinding.ContactListItemBinding
 import br.edu.ufabc.listacontatosresponsiva.databinding.FragmentContactListBinding
 
 
-class ContactListFragment(private val contacts: List<Contact>) : Fragment() {
+class ContactListFragment : Fragment() {
     private lateinit var  binding: FragmentContactListBinding
+    lateinit var contacts: List<Contact>
 
     companion object {
         const val itemClickedKey = "itemClickedKey"

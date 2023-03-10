@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import br.edu.ufabc.listacontatosresponsiva.databinding.FragmentContactItemBinding
 
 
-class ContactItemFragment(private val contact: Contact) : Fragment() {
+class ContactItemFragment() : Fragment() {
     private lateinit var binding: FragmentContactItemBinding
+    lateinit var contact: Contact
 
     override fun onCreateView(
         inflater: LayoutInflater,
