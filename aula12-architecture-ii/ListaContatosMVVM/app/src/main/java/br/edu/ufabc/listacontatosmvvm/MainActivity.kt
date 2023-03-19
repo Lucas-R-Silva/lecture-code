@@ -3,6 +3,7 @@ package br.edu.ufabc.listacontatosmvvm
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
@@ -19,6 +20,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         bindEvents()
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.clickedItemId.value = null
+            }
+        })
     }
 
     private fun isTablet() = resources.configuration.smallestScreenWidthDp >= 600
@@ -65,11 +71,4 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-
-        viewModel.clickedItemId.value = null
-    }
-
 }
